@@ -1,0 +1,95 @@
+<div class="notebook">
+
+<div class="nb-cell program" data-singleline="true" name="p1">
+s(X):-p(X),q(X).
+s(X):-r(X).
+p(a).
+q(a).
+r(a).
+</div>
+
+<div class="nb-cell query" name="q2">
+s(a).
+</div>
+
+<div class="nb-cell program" name="p2">
+s(X):-p(X),!,q(X).
+s(X):-r(X).
+p(a).
+q(e).
+r(a).
+</div>
+
+<div class="nb-cell query" name="q1">
+s(a).
+</div>
+
+<div class="nb-cell query" name="q3">
+[X|XS]=[a,b,c].
+</div>
+
+<div class="nb-cell query" name="q4">
+A=a,B=[b,c],C=[A|B]
+</div>
+
+<div class="nb-cell query" name="q5">
+[a]=[X|XS]
+</div>
+
+<div class="nb-cell program" data-singleline="true" name="p3">
+p([]).
+p([a,a|X]):-p(X).
+</div>
+
+<div class="nb-cell query" name="q6">
+p([a,a,a]).
+</div>
+
+<div class="nb-cell program" data-singleline="true" name="p4">
+p([]).
+p([a,a|X]):-p(X),
+	n1-p([a,a|[a,a,a,a]]):-p([a,a,a,a]),
+		n2-p([a,a|[a,a]]):-p([a,a]),
+    		n3-p([a,a|[]]):-p([]).
+</div>
+
+<div class="nb-cell program" data-singleline="true" name="p5">
+p([]).
+p([X|T]):-write(X),p(T).
+</div>
+
+<div class="nb-cell query" name="q7">
+p([a,t,i,r,e,i,' ',n,o,' ',g,a,t,o]).
+</div>
+
+<div class="nb-cell program" data-singleline="true" name="p6">
+pertence(H,[H|_]).
+pertence(X,[_|T]):-pertence(X,T).
+</div>
+
+<div class="nb-cell query" name="q8">
+pertence(a,[c,d,a]).
+</div>
+
+<div class="nb-cell program" data-singleline="true" name="p7">
+fala(x,r).
+fala(x,i).
+fala(y,p).
+fala(y,r).
+</div>
+
+<div class="nb-cell query" name="q9">
+fala(x,L).
+</div>
+
+<div class="nb-cell program" name="p8">
+p(0, []).
+p(X, [H|T]) :- p(N,T),X is N + H.
+  
+</div>
+
+<div class="nb-cell query" name="q10">
+p(1,[1,2,3,4]).
+</div>
+
+</div>

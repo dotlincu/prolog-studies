@@ -1,0 +1,137 @@
+<div class="notebook">
+
+<div class="nb-cell program" name="p1">
+% Programa em Prolog para somar elementos de uma lista
+somar_lista([], 0). % Caso base: a soma de uma lista vazia é 0
+somar_lista([H|T], Soma) :- somar_lista(T, SomaRestante), Soma is H + SomaRestante.
+
+% Exemplo de consulta: somar_lista([1, 2, 3, 8, 9, 6, 8], Resultado).
+</div>
+
+<div class="nb-cell query" name="q2">
+somar_lista([1, 2, 3, 8, 9, 8], Resultado).
+</div>
+
+<div class="nb-cell program" name="p2">
+% Programa em Prolog para inverter uma lista
+inverter_lista([], []). % Caso base: inverter uma lista vazia resulta em uma lista vazia
+inverter_lista([H|T], ListaInvertida) :- inverter_lista(T, Resto), append(Resto, [H], ListaInvertida).
+
+% Exemplo de consulta: inverter_lista([1, 2, 3, 4], Resultado).
+</div>
+
+<div class="nb-cell query" name="q1">
+inverter_lista([1, 2, 3, 8, 6], Resultado).
+</div>
+
+<div class="nb-cell program" name="p3">
+% Programa em Prolog para verificar se uma lista é subconjunto de outra
+subconjunto([], _). % Um conjunto vazio é subconjunto de qualquer lista
+subconjunto([H|T], Lista) :- member(H, Lista), subconjunto(T, Lista).
+
+% Exemplo de consulta: subconjunto([1, 2], [1, 2, 3, 4]).
+</div>
+
+<div class="nb-cell query" name="q3">
+subconjunto([1, 2], [1, 2, 3, 4]).
+</div>
+
+<div class="nb-cell program" name="p4">
+% Programa em Prolog para retornar o elemento na posição K de uma lista
+elemento_k(1, [H|_], H). % Caso base: o elemento na posição 1 é a cabeça da lista
+elemento_k(K, [_|T], Elemento) :- K &gt; 1, NovoK is K - 1, elemento_k(NovoK, T, Elemento).
+
+% Exemplo de consulta: elemento_k(3, [1, 2, 3, 4, 5], Resultado).
+</div>
+
+<div class="nb-cell query" name="q4">
+elemento_k(3, [1, 2, 7, 3, 4, 5], Resultado).
+</div>
+
+<div class="nb-cell program" name="p5">
+% Programa em Prolog para retornar o número de elementos de uma lista
+numero_elementos([], 0). % Caso base: uma lista vazia tem 0 elementos
+numero_elementos([_|T], N) :- numero_elementos(T, NRestante), N is 1 + NRestante.
+
+% Exemplo de consulta: numero_elementos([1, 2, 3, 4, 5], Resultado).
+</div>
+
+<div class="nb-cell query" name="q6">
+numero_elementos([1, 2, 3, 8, 4, 7], Resultado).
+</div>
+
+<div class="nb-cell program" name="p6">
+% Programa em Prolog para eliminar duplicatas de uma lista
+eliminar_duplicatas([], []). % Caso base: uma lista vazia não tem duplicatas
+eliminar_duplicatas([H|T], ListaSemDuplicatas) :-
+    member(H, T), !, eliminar_duplicatas(T, ListaSemDuplicatas). % Elemento repetido, ignora
+eliminar_duplicatas([H|T], [H|Resto]) :-
+    eliminar_duplicatas(T, Resto).
+
+% Exemplo de consulta: eliminar_duplicatas([1, 2, 2, 3, 4, 4, 5], Resultado).
+</div>
+
+<div class="nb-cell query" name="q5">
+eliminar_duplicatas([1, 2, 2, 3, 4, 4, 5], Resultado).
+</div>
+
+<div class="nb-cell program" name="p7">
+% Programa em Prolog para inverter uma lista sem o uso de append
+inverter_lista(Lista, ListaInvertida) :- inverter_lista_aux(Lista, [], ListaInvertida).
+
+inverter_lista_aux([], Acumulador, Acumulador).
+inverter_lista_aux([H|T], Acumulador, ListaInvertida) :- inverter_lista_aux(T, [H|Acumulador], ListaInvertida).
+
+% Exemplo de consulta: inverter_lista([1, 2, 3, 4], Resultado).
+</div>
+
+<div class="nb-cell query" name="q7">
+inverter_lista([1, 2, 3, 4], Resultado).
+</div>
+
+<div class="nb-cell program" name="p8">
+% Programa em Prolog para verificar se uma lista é subconjunto de outra sem usar member
+subconjunto([], _). % Um conjunto vazio é subconjunto de qualquer lista
+subconjunto([H|T], Lista) :- pertence(H, Lista), subconjunto(T, Lista).
+
+% Predicado auxiliar para verificar pertinência de um elemento a uma lista
+pertence(Elemento, [Elemento|_]).
+pertence(Elemento, [_|T]) :- pertence(Elemento, T).
+
+% Exemplo de consulta: subconjunto([1, 2], [1, 2, 3, 4]).
+</div>
+
+<div class="nb-cell query" name="q8">
+subconjunto([1, 3], [1, 2, 3, 4]).
+</div>
+
+<div class="nb-cell program" name="p9">
+% Predicado principal para eliminar duplicatas
+eliminar_duplicatas(Lista, Resultado) :-
+    eliminar_duplicatas_aux(Lista, [], ResultadoReverso),
+    reverse(ResultadoReverso, Resultado).
+
+% Predicado auxiliar com um acumulador para eliminar duplicatas
+eliminar_duplicatas_aux([], Acc, Acc).
+eliminar_duplicatas_aux([H|T], Acc, Resultado) :-
+    (   pertence(H, Acc) -&gt;
+        eliminar_duplicatas_aux(T, Acc, Resultado)
+    ;   eliminar_duplicatas_aux(T, [H|Acc], Resultado)
+    ).
+
+% Predicado para verificar se um elemento pertence à lista
+pertence(X, [H|_]) :-
+    X == H.
+pertence(X, [_|T]) :-
+    pertence(X, T).
+</div>
+
+<div class="nb-cell query" name="q9">
+eliminar_duplicatas([1, 2, 2, 3, 4, 4, 5], Resultado).
+</div>
+
+<div class="nb-cell program" name="p10">
+
+</div>
+
+</div>

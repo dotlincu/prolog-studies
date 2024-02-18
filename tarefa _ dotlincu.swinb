@@ -1,0 +1,36 @@
+<div class="notebook">
+
+<div class="nb-cell program" name="p1">
+aluno(joao,paradigmas).
+aluno(maria,paradigmas).
+aluno(joel,lab2).
+aluno(joel,estruturas).
+frequenta(joao,feup).
+frequenta(maria,feup).
+frequenta(joel,ist).
+professor(carlos,paradigmas).
+professor(ana_paula,estruturas).
+professor(pedro,lab2).
+funcionario(pedro,ist).
+funcionario(ana_paula,feup).
+funcionario(carlos,feup).
+
+% a) Quem são os alunos do professor X?
+aluno_do_professor(Aluno,Professor):-aluno(Aluno,Materia),professor(Professor,Materia).
+% b) Quem são as pessoas da universidade X (alunos ou docentes)
+pessoa_da_universidade(Pessoa,Universidade):-frequenta(Pessoa,Universidade);funcionario(Pessoa,Universidade).
+% c) Quem é colega de quem? 
+% Se aluno: é colega se for colega de disciplina, ou colega de curso, 
+% ou colega de universidade.
+% Se professor: se for professor da mesma universidade.
+</div>
+
+<div class="nb-cell query" name="q2">
+findall(Aluno,aluno_do_professor(Aluno,pedro),Alunos).
+</div>
+
+<div class="nb-cell query" name="q1">
+findall(Pessoa,pessoa_da_universidade(Pessoa,feup),Pessoas).
+</div>
+
+</div>

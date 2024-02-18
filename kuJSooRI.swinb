@@ -1,0 +1,96 @@
+<div class="notebook">
+
+<div class="nb-cell program" data-singleline="true" name="p1">
+fala(alex,russo).
+fala(bob,ingles).
+fala(mary,russo).
+fala(mary,ingles).
+fala_com(Pessoa1,Pessoa2):-fala(Pessoa1,Lingua),fala(Pessoa2,Lingua),Pessoa1\=Pessoa2.
+</div>
+
+<div class="nb-cell program" name="p2">
+progenitor(maria,pedro).
+progenitor(maria,ana).
+progenitor(joao,pedro).
+progenitor(joao,ana).
+progenitor(ana,helena).
+progenitor(ana,joana).
+progenitor(pedro,mario).
+progenitor(helena,carlos).
+progenitor(mario,carlos).
+% ---------------------------------------------------------------------------------- %
+mulher(maria).
+mulher(ana).
+mulher(helena).
+mulher(joana).
+homem(pedro).
+homem(joao).
+homem(mario).
+homem(carlos).
+
+% pessoa 1 é irmão de pessoa 2
+irmao(Pessoa1,Pessoa2):-progenitor(Pessoa3,Pessoa1),progenitor(Pessoa3,Pessoa2),
+    homem(Pessoa1),Pessoa1\=Pessoa2.
+% pessoa 1 é irmã de pessoa 2
+irma(Pessoa1,Pessoa2):-progenitor(Pessoa3,Pessoa1),progenitor(Pessoa3,Pessoa2),
+    mulher(Pessoa1),Pessoa1\=Pessoa2.
+% pessoa 1 é descendente de pessoa 2
+descendente(Pessoa1,Pessoa2):-progenitor(Pessoa2,Pessoa1).
+% pessoa 1 é ascendente de pessoa 2
+ascendente(Pessoa1,Pessoa2):-progenitor(Pessoa1,Pessoa2).
+ascendente(Pessoa1,Pessoa2):-progenitor(Pessoa3,Pessoa2),progenitor(Pessoa1,Pessoa3).
+ascendente(Pessoa1,Pessoa2):-progenitor(Pessoa1,Pessoa3),progenitor(Pessoa3,Pessoa4),progenitor(Pessoa4,Pessoa2).
+% pessoa 1 é mãe/pai de pessoa 2
+mae(Pessoa1,Pessoa2):-progenitor(Pessoa1,Pessoa2),mulher(Pessoa1).
+pai(Pessoa1,Pessoa2):-progenitor(Pessoa1,Pessoa2),homem(Pessoa1).
+% pessoa 1 é avo de pessoa 2
+avo(Pessoa1,Pessoa2):-progenitor(Pessoa1,Pessoa3),progenitor(Pessoa3,Pessoa2).
+% pessoa 1 é tio/tia de pessoa 2
+tio(Pessoa1,Pessoa2):-irmao(Pessoa1,Pessoa3),progenitor(Pessoa3,Pessoa2),Pessoa1\=Pessoa3.
+tia(Pessoa1,Pessoa2):-irma(Pessoa1,Pessoa3),progenitor(Pessoa3,Pessoa2),Pessoa1\=Pessoa3.
+% pessoa 1 é primo/prima de pessoa 2
+primo(Pessoa1,Pessoa2):-progenitor(Pessoa3,Pessoa1),progenitor(Pessoa4,Pessoa2),
+    (irmao(Pessoa3,Pessoa4)),homem(Pessoa1),Pessoa1\=Pessoa2.
+prima(Pessoa1,Pessoa2):-progenitor(Pessoa3,Pessoa1),progenitor(Pessoa4,Pessoa2),
+    (irma(Pessoa3,Pessoa4)),mulher(Pessoa1),Pessoa1\=Pessoa2.
+</div>
+
+<div class="nb-cell query" data-tabled="true" name="q1">
+% questão 1 - O Pedro é filho do João?
+progenitor(joao,X).
+</div>
+
+<div class="nb-cell query" data-tabled="true" name="q2">
+% questão 2 - Quem são os filhos da Maria? 
+descendente(Filhos,maria).
+</div>
+
+<div class="nb-cell query" data-tabled="true" name="q3">
+% questão 3 - Quem são os primos do Mário?
+distinct([Primos], (primo(mario,Primos))).
+</div>
+
+<div class="nb-cell query" data-tabled="true" name="q4">
+% questão 4 - Quantos sobrinhos/sobrinhas com um Tio existem na família Lima?
+aggregate_all(count, (distinct([Tio,X,Tia,Y], (tio(Tio,X);tia(Tia,Y)))), Count).
+</div>
+
+<div class="nb-cell query" data-tabled="true" name="q6">
+% questão 5 - Quem são os ascendentes do Carlos?
+setof(Ascendente,ascendente(Ascendente,carlos),Ascendentes).
+</div>
+
+<div class="nb-cell query" data-tabled="true" name="q5">
+% questão 6 - A Helena tem irmãos? E irmãs?
+irma(helena,Irmaos).
+</div>
+
+<div class="nb-cell query" name="q7">
+listing(progenitor/2).
+</div>
+
+<div class="nb-cell query" name="q7">
+listing(progenitor/2).
+</div>
+
+</div>
